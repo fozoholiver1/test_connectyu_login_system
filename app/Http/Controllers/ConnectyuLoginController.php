@@ -23,8 +23,11 @@ class ConnectyuLoginController extends Controller
         if (!empty($json['access_token'])) {
             $access_token = $json['access_token']; // your access token
             $type = "get_user_data"; // or posts_data
+            $type2 = "posts_data"; // or posts_data
             $get = file_get_contents("https://www.connectyu.com/app_api?access_token={$access_token}&type={$type}");
+            $get_form_data = file_get_contents("https://www.connectyu.com/app_api?access_token={$access_token}&type={$type2}");
             $connectyu_data = json_decode($get, true);
+            $connectyu_data_form_data = json_decode($get_form_data, true);
 //            convert any $connectyu_data to a single dimensional array
             //function to convert multi to single dimentional array
             function array_flatten($array)
@@ -44,7 +47,10 @@ class ConnectyuLoginController extends Controller
             }
 
             $data = array_flatten($connectyu_data);//we create a new 1 dimentional array
-            ddd($data);
+
+            //
+            $connectyu_form_data = array_flatten($connectyu_data_form_data);//we create a new 1 dimentional array
+            ddd($data,$connectyu_form_data);
 //            we confirm that the user logged in to connectyu before we proceed
 //            plan for authentication
 //                login to connectyu
@@ -73,7 +79,7 @@ class ConnectyuLoginController extends Controller
                     ]);
 
                     event(new Registered($user));
-                    ddd($user);
+//                    ddd($user);
 
                     Auth::login($user);
 

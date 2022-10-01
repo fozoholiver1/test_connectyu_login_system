@@ -46,6 +46,11 @@
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
+                    <a href="/auth/redirect">
+                <x-github_login_button class="ml-3">
+                    {{_('Github')}}
+                </x-github_login_button>
+                    </a>
                     <a href="https://www.connectyu.com/oauth?app_id={{env('CONNECTYU_APP_ID')}}">
                 <x-connectyu_button class="ml-3">
                     {{_('ConnectYu')}}
